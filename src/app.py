@@ -36,30 +36,26 @@ def handle_hello():
     }
 
 
-    return jsonify(response_body), 200
+    return jsonify(members), 200
 
 @app.route('/member/<int:id>', methods=['GET'])
 def get_member(id):
-    member= jackson_family.get_member(id)
     
+    member= jackson_family.get_member(id)
     return jsonify(member), 200
 
 @app.route('/member', methods=['POST'])
 def create_member():
-    request =json.loads(request.data)
-    member= jackson_family.add_member(request)
+    data = request.json
+    member= jackson_family.add_member(data)
     
-    return jsonify(),200
+    return jsonify(member),200
 
-@app.route('/delete/<int:id>', methods=['DELETE'])
+    
+@app.route('/member/<int:id>', methods=['DELETE'])
 def delete(id):
-    delete =jackson_family.delete_member(id)
-    return jsonify(delete),200
-
-
-
-
-
+    delete =jackson_family.delete_member(id=id)
+    return jsonify({"msj":"member deleted "}),200
 
 
 
